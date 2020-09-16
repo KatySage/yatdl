@@ -1,12 +1,33 @@
 const express = require('express'),
-    router = express.Router();
+    router = express.Router(),
+    languages = require('../models/languages'),
+    rankings = require('../models/rankings')
 
-router.get('/', (req, res) =>{
-    const snippet = `<h1>Good morning</h1>`
-    res
-        .status(200)
-        .send(snippet)
-        .end()
+router.get('/', async (req, res) =>{
+    const langData = await languages.getAll();
+    const rankData = await rankings.getAll();
+    res.render("template", {
+        locals: {
+            title: "Welcome",
+            data_lang: langData,
+            data_rank: rankData
+        },
+        partials: {
+            partial: "partial-index"
+        }
+    });
+});
+router.put('/', async (req, res) =>{
+    const langData = await languages.getAll();
+    res.render("template", {
+        locals: {
+            title: "Welcome",
+            data_lang: langData,
+        },
+        partials: {
+            partial: "partial-index"
+        }
+    });
 });
 
 module.exports = router;
