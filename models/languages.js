@@ -15,5 +15,14 @@ class LanguagesList {
             return error.message;
         }
     }
+    static async updateStatus(rank, name){
+        try {
+            const response = await db.result(`UPDATE languages SET my_rank = $1 WHERE name = $2`, [rank, name]);
+            return response;
+        }catch (error){
+            console.error("Error: ", error)
+            return error.message
+        }
+    }
 }
 module.exports = LanguagesList;

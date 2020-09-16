@@ -1,18 +1,14 @@
 <div>
     <form action='/' method='POST'>
-    <ul>
         ${data_lang.map(language => { return `
-        <li>
+        <label>
             In ${language.name}, I am ${language.rank_text}.
             <br>
-                <select placeholder = 'Update your ranking'>
-                    <option value="" disabled selected hidden>Update your rank?</option>
-                    ${data_rank.map(rank => { return `<option value="${rank.rank_num}">${rank.rank_text}</option>`}).join('')}
-                </select>
-        </li>`}).join('')}
-    </ul>
-</div>
-<div> 
+                <select name='${language.name}' placeholder = 'Update your ranking'>
+                    <option value="" disabled selected hidden>Update your ${language.name} rank?</option>
+                    ${data_rank.map(rank => { return `<option value="${rank.rank_num}" name="rank_id">${rank.rank_text}</option>`}).join('')}
+                </select></label><br>`}).join('')}
+
     <button type="submit">Submit your rankings to the database</button>
     </form>
 </div>

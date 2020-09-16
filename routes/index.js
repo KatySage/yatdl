@@ -1,3 +1,5 @@
+const LanguagesList = require('../models/languages');
+
 const express = require('express'),
     router = express.Router(),
     languages = require('../models/languages'),
@@ -17,17 +19,11 @@ router.get('/', async (req, res) =>{
         }
     });
 });
-router.put('/', async (req, res) =>{
-    const langData = await languages.getAll();
-    res.render("template", {
-        locals: {
-            title: "Welcome",
-            data_lang: langData,
-        },
-        partials: {
-            partial: "partial-index"
-        }
-    });
+router.post('/', async (req, res) =>{
+    console.log(req.body)
+    const dbResponse = await languages.updateStatus(0, 'HTML')
+    console.log(dbResponse)
+    res.status(200).send('OK');
 });
 
 module.exports = router;
