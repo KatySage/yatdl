@@ -20,10 +20,10 @@ router.get('/', async (req, res) =>{
     });
 });
 router.post('/', async (req, res) =>{
-    console.log(req.body)
-    const dbResponse = await languages.updateStatus(0, 'HTML')
-    console.log(dbResponse)
-    res.status(200).send('OK');
+    for (let key in req.body){
+        const dbResponse = await languages.updateStatus(req.body[key], key)
+    }
+    res.redirect('/');
 });
 
 module.exports = router;
