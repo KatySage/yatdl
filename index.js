@@ -24,7 +24,8 @@ server.listen(port, hostname, () =>{
     console.log(`Server is running at http://${hostname}:${port}`)
 })
 const rootController = require("./routes/index")
-
+const detailsController = require('./routes/busDetails')
 
 app
     .use('/', rootController)
+    .use('/business', detailsController)
