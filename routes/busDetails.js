@@ -5,6 +5,9 @@ const express = require('express'),
     restaurantsList = require('../models/restaurants')
 
 router.get('/:name?', async (req, res) =>{
+    if(req.params.name === undefined){
+        res.redirect('/')
+    } else{
     const resDetails = await restaurantsList.getDetails(req.params.name)
     const revDetails= await restaurantsList.getReviews(req.params.name)
     console.log(revDetails)
@@ -17,6 +20,6 @@ router.get('/:name?', async (req, res) =>{
         partials: {
             partial: "partial-details"
         }
-    });
+    });}
 });
 module.exports = router;
