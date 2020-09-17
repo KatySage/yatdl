@@ -1,7 +1,7 @@
 const host = "lallah.db.elephantsql.com";
-const database = "anmpouik";
-const user = "anmpouik";
-const password = "gDEyyZLDEeD-bz_FSsltIenpUTO-BcAy";
+const database = "tqxsdjvz";
+const user = "tqxsdjvz";
+const password = "xzw3mwuJxMJ8BUAjBFLdt2sdqx4ClV3P";
 
 const pgp = require('pg-promise')({
     query: function(event){
