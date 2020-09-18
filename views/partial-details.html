@@ -1,4 +1,4 @@
-<a href="/"></a><button><-- All restaurants</button>
+<a href="/"><button><-- All restaurants</button></a>
 
 
     <h1>${data.name}</h1>
@@ -15,9 +15,47 @@
         <li> This restaurant does takeout? ${data.takeout}</li>
     </ul>
         <br>
-<table>
-<thead>
 
-</thead>
+${revData.map(item => { return `
+<table border="1px">
+    <thead>
+        <tr>
+            <th>
+                ${item.title}
+            </th>
+            <th align="right">
+                ${item.rev_stars} star(s)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr align="center"><td colspan="2">
+            "${item.review}"
+        </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td>
+                ${item.name}
+            </td>
+            <td align="right">
+                ${item.karma}/100 karma
+            </td>
+        </tr>
+</tfoot>
 </table>
+<br>
+`}).join('')}
 </div>
+
+            <ul>
+                <form name="insert"  method="POST" >
+                <input type='hidden' name="restaurant_id" value="${data.id}">
+                <li>Review Title:</li>
+                <li><input type="text" name="title" /></li>
+                <li>Review Content:</li>
+                <li><input type="text" name="review" /></li>
+                <li>Stars (out of 5):</li><li><input type="text" name="rev_stars" /></li><button type="submit">Submit your review</button>
+                </form>
+                </ul>
