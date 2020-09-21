@@ -1,61 +1,106 @@
-<a href="/"><button><-- All restaurants</button></a>
-
-
-    <h1>${data.name}</h1>
-    <ul>
-        <li>
-            ${data.category}.
-        </li>
-        <li>
-            Distance: ${data.distance} miles from you.
-        </li>
-        <li>
-            Our favorite dish to get is the ${data.favorite_dish}.
-        </li>
-        <li> This restaurant does takeout? ${data.takeout}</li>
-    </ul>
-        <br>
-
-${revData.map(item => { return `
-<table border="1px">
-    <thead>
-        <tr>
-            <th>
-                ${item.title}
-            </th>
-            <th align="right">
-                ${item.rev_stars} star(s)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr align="center"><td colspan="2">
-            "${item.review}"
-        </td>
-        </tr>
-    </tbody>
-    <tfoot>
-        <tr>
-            <td>
-                ${item.name}
-            </td>
-            <td align="right">
-                ${item.karma}/100 karma
-            </td>
-        </tr>
-</tfoot>
-</table>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>${data.name}</h1>
+            <ul>
+                <li>
+                    ${data.category}.
+                </li>
+                <li>
+                    Distance: ${data.distance} miles from you.
+                </li>
+                <li>
+                    Our favorite dish to get is the ${data.favorite_dish}.
+                </li>
+                <li> This restaurant does takeout? ${data.takeout}</li>
+            </ul>
+        
+        </div>
+    </div>
+</div>
 <br>
+<!-- <div class="container" align="center">
+    <div class="row">
+        <div class="col">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Add a review
+            </button>
+        </div>
+    </div>
+    <br>
+</div> -->
+<div class="container" align="center">
+${revData.map(item => { return `
+    <div class="row">
+        <div class="col">
+            <table border="1px">
+                <thead>
+                    <tr>
+                        <th scope="col">
+                            <h2>${item.title}</h2>
+                        </th>
+                        <th scope="col" align="right">
+                            ${item.rev_stars} star(s)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr align="center">
+                        <td colspan="2">
+                        <h4>"${item.review}"</h4>
+                        </td>
+                    </tr>
+
+                    <tr align="center">
+                        <td colspan="2">
+                            -${item.name}
+                        </td>
+                        </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br>
 `}).join('')}
 </div>
 
-            <ul>
-                <form name="insert"  method="POST" >
+<!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Leave a review for ${data.name}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body"> -->
+            <form name="insert"  method="POST" >
+          <ul>
+                
                 <input type='hidden' name="restaurant_id" value="${data.id}">
+                <input type='hidden' name="slug" value="${data.slug}">
                 <li>Review Title:</li>
-                <li><input type="text" name="title" /></li>
+                    <li><input type="text" name="title" /></li>
                 <li>Review Content:</li>
-                <li><input type="text" name="review" /></li>
-                <li>Stars (out of 5):</li><li><input type="text" name="rev_stars" /></li><button type="submit">Submit your review</button>
-                </form>
-                </ul>
+                    <li><textarea type="text" name="review"></textarea></li>
+                <li>Stars:</li>
+                    <li>
+                    <select name="rev_stars" class="form-select" id="inputGroupSelect01">
+                        <option selected>Choose...</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        </select>
+                    </li>
+            </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Submit review</button>
+        </form>
+    </div>
+      </div>
+    </div>
+    </div></div>

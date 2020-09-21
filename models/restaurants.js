@@ -21,7 +21,7 @@ class RestaurantList {
     }
     static async getDetails (slug) {
         try{
-            const response = await db.one(`SELECT name, id, category, distance, favorite_dish, takeout FROM restaurants WHERE slug= $1;`, [slug]);
+            const response = await db.one(`SELECT name, id, category, distance, favorite_dish, takeout, slug FROM restaurants WHERE slug= $1;`, [slug]);
             return response 
         }catch (error) {
             return error.message;
@@ -29,7 +29,7 @@ class RestaurantList {
     }
     static async getReviews (slug) {
         try{
-            const response = await db.any(`SELECT title, rev_stars, review.review FROM restaurants INNER JOIN review ON restaurants.id = review.restaurant_id WHERE slug= $1;`, [slug]);
+            const response = await db.any(`SELECT title, rev_stars, review.review, reviewer.name FROM restaurants INNER JOIN review ON restaurants.id = review.restaurant_id INNER JOIN reviewer ON review.reviewer_id= reviewer.id WHERE slug= $1;`, [slug]);
             return response 
         }catch (error) {
             return error.message;
@@ -40,6 +40,16 @@ class RestaurantList {
             const response = await db.result(`
             INSERT INTO review (title, review, rev_stars, restaurant_id)
             VALUES ($1, $2, $3, $4);`, [title, review, rev_stars, restaurant_id]);
+            return response 
+        }catch (error) {
+            return error.message;
+        }
+    }
+    static async signUp (name, email, password) {
+        try{
+            const response = await db.result(`
+            INSERT INTO reviewer (name, email, password)
+            VALUES ($1, $2, $3);`, [name, email, password]);
             return response 
         }catch (error) {
             return error.message;

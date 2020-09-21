@@ -1,12 +1,13 @@
 const express = require('express'),
     router = express.Router(),
     restaurantsList = require('../models/restaurants')
-const renderIndex = async res => {
+const renderIndex = async (req, res) => {
     const resData = await restaurantsList.getAll();
     return res.render("template", {
         locals: {
             title: "Welcome",
             data: resData,
+            is_logged_in: req.session.is_logged_in,
         },
         partials: {
             partial: "partial-index"
@@ -15,14 +16,8 @@ const renderIndex = async res => {
 }
 
 router.get('/', async (req, res) =>{
-    renderIndex(res);
+    renderIndex(req, res);
 });
-// router.post('/', async (req, res) =>{
-//     for (let key in req.body){
-//         const dbResponse = await languages.updateStatus(req.body[key], key)
-//     }
-//     //res.redirect('/');
-//     renderPage(res);
-// });
+
 
 module.exports = router;

@@ -4,18 +4,19 @@ const express = require('express'),
     router = express.Router(),
     restaurantsList = require('../models/restaurants')
 
-router.get('/:name?', async (req, res) =>{
-    if(req.params.name === undefined){
+router.get('/:slug?', async (req, res) =>{
+    if(req.params.slug === undefined){
         res.redirect('/')
     } else{
-    const resDetails = await restaurantsList.getDetails(req.params.name)
-    const revDetails= await restaurantsList.getReviews(req.params.name)
-    console.log(resDetails)
+    const resDetails = await restaurantsList.getDetails(req.params.slug)
+    const revDetails= await restaurantsList.getReviews(req.params.slug)
+    console.log(revDetails)
     res.render("template", {
         locals: {
             title: "Details",
             data: resDetails,
-            revData: revDetails
+            revData: revDetails,
+            is_logged_in: req.session.is_logged_in,
         },
         partials: {
             partial: "partial-details"
@@ -23,14 +24,11 @@ router.get('/:name?', async (req, res) =>{
     });}
 });
 
-router.post('/:name?', async (req, res) => {
+router.post('/:slug?', async (req, res) => {
     console.log(req.body)
-    const {title} = req.body,
-        {review} = req.body,
-        {rev_stars} = req.body,
-        {restaurant_id} = req.body;
+    const {title, review, rev_stars, restaurant_id, slug} = req.body;
     await restaurantsList.createReview(title, review, rev_stars, restaurant_id);
-    res.redirect('back')
+    res.redirect(`/business/${slug}`)
 });
 
 module.exports = router
