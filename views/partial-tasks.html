@@ -1,0 +1,57 @@
+<br>
+<div class="container" align="center">
+    <div class="row">
+        <div class="col">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Add a task
+            </button>
+        </div>
+    </div>
+    <br>
+</div>
+<div class="container" align="center">
+    
+        ${data.map(task => { return
+            ${completed === true ? 
+                '<div class="row">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            ${data.task}
+                        </label>
+                </div></div>' 
+            :
+                '<div class="row"><div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                    <label class="form-check-label" for="flexCheckChecked">
+                    ${data.task}
+                    </label>
+                    </div></div>'}).join('')}
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add a task to the list</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form name="insert"  method="POST" >
+                <ul>
+                      
+                      <input type='hidden' name="user_id" value="${data.user_id}">
+                      <li>Task:</li>
+                          <li><textarea type="text" name="task"></textarea></li>
+                  </ul>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Create new task</button>
+              </form>
+          </div>
+            </div>
+          </div>
+          </div></div>

@@ -9,7 +9,6 @@ const express = require('express'),
     es6Renderer = require('express-es6-template-engine'),
     morgan = require('morgan'),
     logger = morgan('tiny'),
-    helmet = require('helmet'),
     session = require('express-session'),
     FileStore = require('session-file-store')(session),
     cookieParser = require('cookie-parser'),
@@ -23,7 +22,6 @@ app
 
 
 app.use(logger),
-app.use(helmet())
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, "/public")));
 app.use(express.json());
@@ -44,10 +42,10 @@ server.listen(port, hostname, () =>{
     console.log(`Server is running at http://${hostname}:${port}`)
 })
 const rootController = require("./routes/index"),
-    detailsController = require('./routes/busDetails'),
-    usersController = require('./routes/users')
+    usersController = require('./routes/users'),
+    tasksController = require('./routes/tasks')
 
 app
     .use('/', rootController)
-    .use('/business', detailsController)
+    .use('/tasks', tasksController)
     .use('/users', usersController)

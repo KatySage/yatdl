@@ -4,7 +4,6 @@ const userList = require('../models/usersModel');
 
 const express = require('express'),
     router = express.Router(),
-    restaurantsList = require('../models/restaurants'),
     bcrypt = require('bcryptjs');
 
 router.get("/logout", (req, res) => {

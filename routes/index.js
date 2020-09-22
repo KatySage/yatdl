@@ -1,8 +1,8 @@
 const express = require('express'),
     router = express.Router(),
-    restaurantsList = require('../models/restaurants')
+    tasksList = require('../models/tasksModel')
 const renderIndex = async (req, res) => {
-    const resData = await restaurantsList.getAll();
+    const resData = await tasksList.getAll();
     return res.render("template", {
         locals: {
             title: "Welcome",
@@ -10,13 +10,15 @@ const renderIndex = async (req, res) => {
             is_logged_in: req.session.is_logged_in,
         },
         partials: {
-            partial: "partial-index"
+            partial: "partial-login"
         }
     });
 }
 
 router.get('/', async (req, res) =>{
-    renderIndex(req, res);
+    res
+        .send('OK')
+        .sendStatus(200);
 });
 
 
