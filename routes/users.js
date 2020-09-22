@@ -33,7 +33,7 @@ router.post('/login', async (req, res) => {
             const { name, user_id } = response;
             req.session.name = name;
             req.session.user_id = user_id;
-            res.redirect('/')
+            res.redirect('/tasks')
         } else {
             res.sendStatus(401);
         }

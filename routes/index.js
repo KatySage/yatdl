@@ -1,12 +1,13 @@
 const express = require('express'),
     router = express.Router(),
     tasksList = require('../models/tasksModel')
+
 const renderIndex = async (req, res) => {
-    const resData = await tasksList.getAll();
+    const taskData = await tasksList.getAll();
     return res.render("template", {
         locals: {
             title: "Welcome",
-            data: resData,
+            data: taskData,
             is_logged_in: req.session.is_logged_in,
         },
         partials: {
@@ -15,10 +16,8 @@ const renderIndex = async (req, res) => {
     });
 }
 
-router.get('/', async (req, res) =>{
-    res
-        .send('OK')
-        .sendStatus(200);
+router.get('/', async (req, res) => {
+    renderIndex(req, res);
 });
 
 

@@ -16,7 +16,7 @@ class UserList {
     async signUp () {
         try{
             const response = await db.one(`
-            INSERT INTO reviewer (name, email, password)
+            INSERT INTO users (name, email, password)
             VALUES ($1, $2, $3)
             RETURNING id;`, [this.name, this.email, this.password])
             console.log("User was created with ID:", response.id);
@@ -27,7 +27,7 @@ class UserList {
     }
     async logIn () {
         try {
-            const response = await db.one(`SELECT id, name, email, password FROM reviewer WHERE email=$1;`, [this.email]);
+            const response = await db.one(`SELECT id, name, email, password FROM users WHERE email=$1;`, [this.email]);
             console.log("login res is :", response);
             const isValid = await this.checkPassword(response.password)
             if (!!isValid){

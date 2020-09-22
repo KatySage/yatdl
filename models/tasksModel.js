@@ -7,7 +7,7 @@ class TaskList {
         this.user_id = user_id
         this.id = id
     }
-    static async getAll () {
+    static async getAll (user_id) {
         try {
             const response = await db.any(`SELECT DISTINCT task, user_id, id, completed FROM tasks WHERE user_id = $1;`, [user_id]);
             return response;
@@ -15,7 +15,7 @@ class TaskList {
             return error.message;
         }
     }
-    static async createReview (task, user_id) {
+    static async createTask (task, user_id) {
         try{
             const response = await db.result(`
             INSERT INTO tasks (task, user_id)
